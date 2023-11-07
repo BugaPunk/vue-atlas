@@ -29,21 +29,26 @@ defineProps<Props>();
                 <template> </template>
             </p>
             <span
+                v-if="country.cca2"
                 class="mx-1 inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700"
             >
                 <p class="whitespace-nowrap text-sm">{{ country.cca2 }}</p>
             </span>
             <span
+                v-if="country.ccn3"
                 class="mx-1 inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700"
             >
                 <p class="whitespace-nowrap text-sm">{{ country.ccn3 }}</p>
             </span>
             <span
+                v-if="country.cca3"
                 class="mx-1 inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700"
             >
                 <p class="whitespace-nowrap text-sm">{{ country.cca3 }}</p>
             </span>
+
             <span
+                v-if="country.cioc"
                 class="mx-1 inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700"
             >
                 <p class="whitespace-nowrap text-sm">{{ country.cioc }}</p>

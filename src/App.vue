@@ -34,7 +34,7 @@ onMounted(() => {
 <template>
     <PageHeader />
     <!--InputBuscar-->
-    <div class="container pb-10 mx-auto px-20  md:px-80">
+    <div class="container pb-10 mx-auto px-20 md:px-80">
         <div class="relative">
             <label for="Search" class="sr-only"> Search for... </label>
 
