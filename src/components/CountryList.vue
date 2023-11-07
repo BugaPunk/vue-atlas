@@ -10,12 +10,12 @@ defineProps<Props>();
 
 <template>
     <div
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-24 text-black"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 text-black"
     >
         <a
             href=""
             v-for="country in countries"
-            class="group relative block h-52 sm:h-64 md:h-80 lg:h-96"
+            class="group relative block h-max sm:h-full md:h-max lg:h-max"
         >
             <span
                 class="absolute inset-0 border-2 border-dashed border-zinc-200"
@@ -36,7 +36,7 @@ defineProps<Props>();
                     </div>
 
                     <div class="py-auto my-auto">
-                        <h2 class="mt-4 text-xl font-medium sm:text-xl">
+                        <h2 class="mt-2 mb-5 text-xl font-medium sm:text-xl">
                             {{ country.translations.spa.common }}
                         </h2>
                     </div>
