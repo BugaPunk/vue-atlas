@@ -6,6 +6,8 @@ import axiosClient from "./utils/axios";
 import { Country } from "./models/country.model";
 
 const countries = ref<Country[]>([]);
+const search = ref("");
+const filteredCountries = ref<Country[]>([]);
 
 const fetchCountries = async () => {
     try {
@@ -16,6 +18,14 @@ const fetchCountries = async () => {
     }
 };
 
+const filterCountries = () => {
+    filteredCountries.value = countries.value.filter((country) =>
+        country.translations.spa.official
+            .toLowerCase()
+            .includes(search.value.toLowerCase())
+    );
+};
+
 onMounted(() => {
     fetchCountries();
 });
@@ -23,7 +33,8 @@ onMounted(() => {
 
 <template>
     <PageHeader />
-    <div class="container pb-10 mx-auto px-auto">
+    <!--InputBuscar-->
+    <div class="container pb-10 mx-auto px-20 sm:px-36 md:px-80">
         <div class="relative">
             <label for="Search" class="sr-only"> Search for... </label>
 
@@ -31,6 +42,8 @@ onMounted(() => {
                 type="text"
                 id="Search"
                 placeholder="Busqueda por nombre de país"
+                v-model="search"
+                @input="filterCountries"
                 class="px-5 w-full rounded-md border-gray-200 py-2.5 pe-10 shadow-sm dark:border-gray-700 dark:bg-neutral-700 dark:text-white sm:text-sm"
             />
 
@@ -61,7 +74,12 @@ onMounted(() => {
             </span>
         </div>
     </div>
-    <div class="container max-w-screen-lg mx-auto px-auto">
-        <CountryList :countries="countries" />
+    <!--InputBuscar-->
+    <div class="container max-w-screen-xl mx-auto px-auto pb-10">
+        <CountryList
+            :countries="
+                filteredCountries.length > 0 ? filteredCountries : countries
+            "
+        />
     </div>
 </template>
