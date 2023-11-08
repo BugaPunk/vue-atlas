@@ -25,7 +25,7 @@
                     <p
                         class="mt-6 text-center text-lg text-gray-500 dark:text-gray-400 lg:text-right"
                     >
-                        Por Ronald Choque Sillo - 2023.
+                        Por Ronald Choque Sillo -- 2023.
                     </p>
                 </div>
             </div>
