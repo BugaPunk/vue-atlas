@@ -125,7 +125,7 @@ watch([countries, page, filteredCountries], () => {
             </a>
         </button>
 
-        <p class="text-xs text-gray-900 dark:text-white">
+        <p class="text-xs text-white dark:text-white">
             {{ page }}
             <span class="mx-0.25">/</span>
             21
