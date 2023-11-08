@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import { Country } from "../models/country.model";
 interface Props {
     country: Country;
 }
 defineProps<Props>();
+const isModalVisible = ref(false);
 </script>
 <template>
     <div>
@@ -12,12 +13,17 @@ defineProps<Props>();
             {{ country.translations.spa.official }}
         </h3>
         <span class="flex items-center space-x-2">
-            {{ country.flag }}&nbsp;
+            <img
+                :src="country.flags.png"
+                alt=""
+                style="width: 22px; height: 15px; display: inline"
+            />
+            &nbsp;
             <img
                 v-if="country.coatOfArms.png"
                 :src="country.coatOfArms.png"
                 alt=""
-                style="width: 16px; height: 16px; display: inline"
+                style="width: 15px; height: 15px; display: inline"
             />
         </span>
         <div class="text-sm py-1">

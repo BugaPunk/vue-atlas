@@ -1,6 +1,6 @@
 {
   "name": "vue-atlas",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
+    "@heroicons/vue": "^2.0.18",
     "axios": "^1.6.0",
     "numeral": "^2.0.6",
     "vue": "^3.3.4"

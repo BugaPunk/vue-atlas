@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import { Country } from "../models/country.model";
 import CountryItem from "./CountryItem.vue";
 interface Props {
@@ -8,12 +8,12 @@ interface Props {
 defineProps<Props>();
 </script>
 
+
 <template>
     <div
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 text-black"
     >
         <a
-            href=""
             v-for="country in countries"
             class="group relative block h-max sm:h-full md:h-max lg:h-max"
         >
@@ -51,3 +51,4 @@ defineProps<Props>();
         </a>
     </div>
 </template>
+
