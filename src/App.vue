@@ -1,18 +1,24 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import PageHeader from "./components/PageHeader.vue";
 import CountryList from "./components/CountryList.vue";
+import Footer from "./components/Footer.vue";
 import axiosClient from "./utils/axios";
 import { Country } from "./models/country.model";
 
 const countries = ref<Country[]>([]);
 const search = ref("");
 const filteredCountries = ref<Country[]>([]);
+const page = ref(1);
+const itemPerPage = ref(12);
+const paginatedCountries = ref<Country[]>([]);
+const totalItems = ref(0);
 
 const fetchCountries = async () => {
     try {
         const { data } = await axiosClient.get("/all");
         countries.value = data;
+        totalItems.value = countries.value.length;
     } catch (error) {
         console.error(error);
     }
@@ -25,9 +31,26 @@ const filterCountries = () => {
             .includes(search.value.toLowerCase())
     );
 };
+//Paginacion
+const sliceCountries = (currentCountries: Country[]) => {
+    const start = (page.value - 1) * itemPerPage.value;
+    const end = page.value * itemPerPage.value;
+    paginatedCountries.value = currentCountries.slice(start, end);
+};
+
+const changePage = (newPage: number) => {
+    page.value = newPage;
+};
 
 onMounted(() => {
     fetchCountries();
+});
+watch([countries, page, filteredCountries], () => {
+    sliceCountries(
+        filteredCountries.value.length <= 0 && search.value === ""
+            ? countries.value
+            : filteredCountries.value
+    );
 });
 </script>
 
@@ -75,11 +98,131 @@ onMounted(() => {
         </div>
     </div>
     <!--InputBuscar-->
-    <div class="container mx-auto px-auto pb-10">
-        <CountryList
-            :countries="
-                filteredCountries.length > 0 ? filteredCountries : countries
-            "
-        />
+    <!-- Paginacion -->
+    <div class="flex items-center justify-center gap-3 pb-8">
+        <!-- Cambia inline-flex a flex -->
+        <button
+            :disabled="page <= 1"
+            :class="{ 'opacity-50': page <= 1 }"
+            @click="($event) => changePage(page - 1)"
+        >
+            <a
+                class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 dark:border-stone-800 dark:bg-stone-900 dark:text-white"
+            >
+                <span class="sr-only">Next Page</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3 w-3"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+            </a>
+        </button>
+
+        <p class="text-xs text-gray-900 dark:text-white">
+            {{ page }}
+            <span class="mx-0.25">/</span>
+            21
+        </p>
+
+        <button
+            :disabled="page >= totalItems / itemPerPage"
+            :class="{ 'opacity-50': page >= totalItems / itemPerPage }"
+            @click="($event) => changePage(page + 1)"
+        >
+            <a
+                class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 dark:border-stone-800 dark:bg-stone-900 dark:text-white"
+            >
+                <span class="sr-only">Next Page</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3 w-3"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+            </a>
+        </button>
+    </div>
+    <!-- Paginacion -->
+
+    <!--Paises-->
+    <div class="container mx-auto px-auto gap-5 ">
+        <CountryList :countries="paginatedCountries" />
+    </div>
+    <!--Paises-->
+
+    <!-- Paginacion -->
+    <div class="flex items-center justify-center gap-3 py-16">
+        <!-- Cambia inline-flex a flex -->
+        <button
+            :disabled="page <= 1"
+            :class="{ 'opacity-50': page <= 1 }"
+            @click="($event) => changePage(page - 1)"
+        >
+            <a
+                class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 dark:border-stone-800 dark:bg-stone-900 dark:text-white"
+            >
+                <span class="sr-only">Next Page</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3 w-3"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+            </a>
+        </button>
+
+        <p class="text-xs text-gray-900 dark:text-white">
+            {{ page }}
+            <span class="mx-0.25">/</span>
+            21
+        </p>
+
+        <button
+            :disabled="page >= totalItems / itemPerPage"
+            :class="{ 'opacity-50': page >= totalItems / itemPerPage }"
+            @click="($event) => changePage(page + 1)"
+        >
+            <a
+                class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 dark:border-stone-800 dark:bg-stone-900 dark:text-white"
+            >
+                <span class="sr-only">Next Page</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3 w-3"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+            </a>
+        </button>
+    </div>
+    <!-- Paginacion -->
+
+    <div class="mt-6 pt-12 gap-2">
+        <Footer />
     </div>
 </template>

@@ -11,12 +11,20 @@ defineProps<Props>();
         <h3 class="text-xl font-bold sm:text-2xl">
             {{ country.translations.spa.official }}
         </h3>
-        <span>
-            {{ country.flag }}
+        <span class="flex items-center space-x-2">
+            {{ country.flag }}&nbsp;
+            <img
+                v-if="country.coatOfArms.png"
+                :src="country.coatOfArms.png"
+                alt=""
+                style="width: 16px; height: 16px; display: inline"
+            />
         </span>
         <div class="text-sm py-1">
-            <p class="my-1 font-medium">Region: {{ country.region }}</p>
-            <p class="my-1 font-medium">Subregion: {{ country.subregion }}</p>
+            <p class="my-1 font-medium">Continente: {{ country.region }}</p>
+            <p v-if="country.subregion" class="my-1 font-medium">
+                Subregion: {{ country.subregion }}
+            </p>
             <p class="my-1 font-medium">
                 Población: {{ country.population?.toLocaleString() }}
             </p>
