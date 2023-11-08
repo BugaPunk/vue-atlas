@@ -158,7 +158,7 @@ watch([countries, page, filteredCountries], () => {
     <!-- Paginacion -->
 
     <!--Paises-->
-    <div class="container mx-auto px-auto gap-5 ">
+    <div class="container mx-auto px-auto">
         <CountryList :countries="paginatedCountries" />
     </div>
     <!--Paises-->
