@@ -18,7 +18,7 @@ defineProps<Props>();
             class="group relative block h-max sm:h-full md:h-max lg:h-max"
         >
             <span
-                class="absolute inset-0 border-2 border-dashed border-zinc-200"
+                class="absolute inset-0 border-2 border-dashed border-zinc-950 dark:border-zinc-200"
             ></span>
 
             <div
