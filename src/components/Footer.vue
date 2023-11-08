@@ -1,7 +1,7 @@
 
 <script setup lang="ts"></script>
 <template>
-    <footer class="bg-gray-100 dark:bg-neutral-900">
+    <footer class="bg-stone-300 dark:bg-neutral-900">
         <div
             class="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-16"
         >
