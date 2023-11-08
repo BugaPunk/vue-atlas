@@ -26,7 +26,7 @@ defineProps<Props>();
                 Subregion: {{ country.subregion }}
             </p>
             <p class="my-1 font-medium">
-                Población: {{ country.population?.toLocaleString() }}
+                Población: {{ country.population?.toLocaleString() }} habitantes
             </p>
             <p class="my-1 font-medium">
                 Extension Territorial: {{ country.area?.toLocaleString() }} km²
