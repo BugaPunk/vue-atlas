@@ -1,6 +1,6 @@
-# vue-atlas
+# App de Atlas del Mundo
 
-This template should help get you started developing with Vue 3 in Vite.
+Esta aplicacion web se contruyo con Vue.js, Tailwind y Deno deploy.
 
 ## Recommended IDE Setup
 
